@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toggleisAuth } from "../Redux/actions";
+import { LoggedName, toggleisAuth } from "../Redux/actions";
 
 export const Login = () => {
   const nav = useNavigate()
@@ -39,6 +39,7 @@ export const Login = () => {
             if (data.username == userM[i].username) {
               if (data.password == userM[i].pass) {
                 dispatch(toggleisAuth(true))
+                dispatch(LoggedName(userM[i].username))
                 if (userM[i].role == 'admin') {
                    nav("/orders")
                 } else {

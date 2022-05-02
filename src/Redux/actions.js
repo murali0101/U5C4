@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 export const USERM="USER"
 export const ORDERM = "ORDER"
 export const isAuth = "isAuth"
+export const Logged = "Logged"
 
 // Action Creators
 
@@ -15,4 +16,7 @@ export function addOrderM(val) {
 }
 export function toggleisAuth(val) { 
   return {type:isAuth,payload:val}
+}
+export function LoggedName(val) { 
+  return {type:Logged,payload:val}
 }

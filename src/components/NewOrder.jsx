@@ -1,7 +1,14 @@
+import { useSelector } from "react-redux";
+
 export const NewOrder = () => {
   // Get data of only this user. store it in redux
   // GET /orders?owner_name=john will give you all order of user john
   //  on submit click create a new order, new order has status `Not Accepted`
+  const Name = useSelector((store) => store.LoggedName);
+  const orderM = useSelector((store) => store.ordersM);
+  let orderF=orderM.filter((e)=>{return e.owner_name==Name})
+  console.log('orderM:', orderF)
+  // console.log('Name:', Name)
   return (
     <div>
       <div className="form">
@@ -16,6 +23,7 @@ export const NewOrder = () => {
           className="owner-name"
           type="text"
           name="owner_name"
+          value={ Name}
           placeholder="yourname"
           readOnly
         />
@@ -37,14 +45,17 @@ export const NewOrder = () => {
         </button>
 
         {/* Here create a div for every oreder, filter them before based on `showUnfinished` */}
-        <div className="past-orders">
-          <span className="id"></span>. <span className="problem"></span>{" "}
+        { orderF.map((ele => {
+        return(  <div className="past-orders">
+          <span className="id">{ele.id }</span>. <span className="problem">{ele.problem}</span>{" "}
           <span className="cost">
-            {/* if status is not accepted then keep it empty otherwise show cost like $1234 */}
-          </span>
-          <p className="status">Status: </p>
-          <hr />
-        </div>
+          {ele.status=="Not Accepted"?null:`${ele.cost}`}
+          {/* if status is not accepted then keep it empty otherwise show cost like $1234 */}
+        </span>
+        <p className="status">Status: {ele.status}</p>
+        <hr />
+      </div>)
+      }))}
       </div>
     </div>
   );

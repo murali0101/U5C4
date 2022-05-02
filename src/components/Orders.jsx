@@ -4,7 +4,7 @@ export const Orders = () => {
   //  Get all data when admin logs in and populate it
   // store it in redux
   const orderM = useSelector((store) => store.ordersM);
-  console.log("orderM:", orderM);
+  // console.log("orderM:", orderM);
   return (
     <div>
       <div>
