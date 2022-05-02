@@ -7,7 +7,7 @@ import { ProtectedRoute } from "./components/ProtextedRoute";
 import { Link, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {addUserM} from "./Redux/actions"
+import {addUserM, toggleisAuth} from "./Redux/actions"
 import {addOrderM} from "./Redux/actions"
 function App() {
   const logM = useSelector((store) => store.isLoggedIn);
