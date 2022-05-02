@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export const NewOrder = () => {
@@ -8,6 +9,7 @@ export const NewOrder = () => {
   const orderM = useSelector((store) => store.ordersM);
   let orderF=orderM.filter((e)=>{return e.owner_name==Name})
   console.log('orderM:', orderF)
+  const [showUnfinished,setshowUnfinished]=useState(false)
   // console.log('Name:', Name)
   return (
     <div>
@@ -40,7 +42,10 @@ export const NewOrder = () => {
       <div className="pastOrders">
         {/* this button filters the data below. */}
         {/* it's just a toggle of redux state something like `showUnfinished`  */}
-        <button className="filter">
+        <button className="filter" onClick={() => {
+          orderF = orderM.filter((e) => { return (e.owner_name == Name && e.owner_name != "Not Accepted") })
+          setshowUnfinished((p)=>{ return !p})
+        }}> {showUnfinished ? "show all" : " show only unfinished"}
           {/* Text should change like:   Show {showUnfinished ? "all" : "Only unfinished"} */}
         </button>
 
@@ -49,7 +54,8 @@ export const NewOrder = () => {
         return(  <div className="past-orders">
           <span className="id">{ele.id }</span>. <span className="problem">{ele.problem}</span>{" "}
           <span className="cost">
-          {ele.status=="Not Accepted"?null:`${ele.cost}`}
+            {ele.status == "Not Accepted" ? null : `${ele.cost}`}
+            
           {/* if status is not accepted then keep it empty otherwise show cost like $1234 */}
         </span>
         <p className="status">Status: {ele.status}</p>
